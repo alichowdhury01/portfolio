@@ -36,7 +36,7 @@ export interface TenantDocument extends TenantInput, mongoose.Document {
 }
 
 // Define the Counter Schema
-const counterSchema = new mongoose.Schema(
+const tenantCounterSchema = new mongoose.Schema(
   {
     _id: { type: String, required: true },
     sequence_value: { type: Number, default: 0 },
@@ -44,7 +44,7 @@ const counterSchema = new mongoose.Schema(
   { timestamps: false }
 );
 
-const CounterModel = mongoose.model("Counter", counterSchema);
+const TenantCounterModel = mongoose.model("Tenant Counter", tenantCounterSchema);
 
 
 const tenantSchema = new mongoose.Schema(
@@ -72,7 +72,7 @@ const tenantSchema = new mongoose.Schema(
 
 // Function to get the next sequence value
 async function getNextSequenceValue(sequenceName: string) {
-  const sequenceDocument = await CounterModel.findOneAndUpdate(
+  const sequenceDocument = await TenantCounterModel.findOneAndUpdate(
     { _id: sequenceName },
     { $inc: { sequence_value: 1 } },
     { new: true, upsert: true }
