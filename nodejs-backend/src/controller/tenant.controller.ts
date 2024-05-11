@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import {
   CreateTenantInput,
-  ReadTenantInput,
+  GetTenantInput,
   UpdateTenantInput,
 } from '../schema/tenant.schema';
 import { createTenant, findTenant } from '../service/tenant.service';
@@ -28,15 +28,20 @@ export async function createTenantHandler(
 }
 
 export async function getTenantHandler(
-  req: Request<ReadTenantInput['params']>,
+  req: Request<GetTenantInput['params']>,
   res: Response
 ) {
   try {
     const tenantId = req.params.tenantId;
 
-    const tenant = await findTenant({ tenantId });
+    const tenant = await findTenant({       
+      tenantId: tenantId});
+    if (!tenant) {
+      return res.sendStatus(404);
+    }
     return res.send(tenant);
   } catch (error: any) {
+    console.error(error);
     return res.status(409).send('Tenant not found');
   }
 }

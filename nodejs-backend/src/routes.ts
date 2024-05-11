@@ -21,8 +21,15 @@ import {
 } from './schema/product.schema';
 import { createSessionSchema } from './schema/session.schema';
 import { createUserSchema } from './schema/user.schema';
-import { createTenantHandler } from './controller/tenant.controller';
-import { createTenantSchema } from './schema/tenant.schema';
+import {
+  createTenantHandler,
+  getTenantHandler,
+  // updateTenantHandler,
+  // updateTenantHandler,
+} from './controller/tenant.controller';
+import { createTenantSchema, getTenantSchema, updateTenantSchema } from './schema/tenant.schema';
+import { createAssignmentSchema } from './schema/assignment.schema';
+import { createAssignmentHandler } from './controller/assignment.controller';
 
 /**
  * Defines the application routes.
@@ -74,8 +81,28 @@ function routes(app: Express) {
   );
 
   app.post(
-    '/api/tenant', validateResource(createTenantSchema), createTenantHandler
-  )
+    '/api/tenant',
+    validateResource(createTenantSchema),
+    createTenantHandler
+  );
+
+  app.get(
+    '/api/tenants/:tenantId',
+  
+    getTenantHandler
+  );
+
+  // app.put(
+  //   '/api/tenants/:tenantId',
+  //   [requireUser, validateResource(updateTenantSchema)],
+  //   updateTenantHandler
+  // );
+
+  app.post(
+    '/api/assignment', 
+    validateResource(createAssignmentSchema),
+    createAssignmentHandler
+  );
 }
 
 export default routes;

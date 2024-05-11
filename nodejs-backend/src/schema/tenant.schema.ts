@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import { object, number, string, TypeOf, date, boolean } from 'zod';
+import { object, number, string, TypeOf, date, boolean, any } from 'zod';
 
 const payload = {
   body: object({
@@ -44,9 +44,9 @@ const payload = {
 const param = {
   params: object({
     tenantId: string({
-      required_error: 'Tenant ID is required',
-    }),
-  }),
+      required_error: 'Tenant ID is required'
+    })
+  })
 };
 
 
@@ -60,14 +60,14 @@ export const updateTenantSchema = object({
 });
 
 export const deleteTenantSchema = object({
-  ...param,
+  ...param
 });
 
 export const getTenantSchema = object({
-  ...param,
+  ...param
 });
 
 export type CreateTenantInput = TypeOf<typeof createTenantSchema>;
 export type UpdateTenantInput = TypeOf<typeof updateTenantSchema>;
 export type DeleteTenantInput = TypeOf<typeof deleteTenantSchema>;
-export type ReadTenantInput = TypeOf<typeof getTenantSchema>;
+export type GetTenantInput = TypeOf<typeof getTenantSchema>;

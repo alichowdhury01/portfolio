@@ -13,7 +13,7 @@ export default {
     port: PORT,
     dbUri: DBURI,
     saltWorkFactor: 10,
-    accessTokenTtl: "15m",
+    accessTokenTtl: "120m",
     refreshTokenTtl: "1y",
     publicKey: PUBLICKEY,
     privateKey: PRIVATEKEY,
