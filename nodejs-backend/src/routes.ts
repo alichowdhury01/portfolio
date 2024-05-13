@@ -23,11 +23,9 @@ import { createSessionSchema } from './schema/session.schema';
 import { createUserSchema } from './schema/user.schema';
 import {
   createTenantHandler,
-  createTenantsHandler,
+  getAllTenantsHandler,
   getTenantHandler,
   updateTenantHandler,
-  // updateTenantHandler,
-  // updateTenantHandler,
 } from './controller/tenant.controller';
 import { createTenantSchema, getTenantSchema, updateTenantSchema } from './schema/tenant.schema';
 import { createAssignmentSchema } from './schema/assignment.schema';
@@ -87,17 +85,25 @@ function routes(app: Express) {
   app.post(
     '/api/tenant',
     validateResource(createTenantSchema),[requireUser, checkRole(Role.Admin)],
-    createTenantsHandler
+    createTenantHandler
+  );
+
+//241183445
+  app.get(
+    '/api/tenants/:tenantId',
+    [requireUser, checkRole(Role.Admin)],
+    getTenantHandler
   );
 
   app.get(
-    '/api/tenants/:tenantId',
-    getTenantHandler
+    '/api/tenants',
+    [requireUser, checkRole(Role.Admin)],
+    getAllTenantsHandler
   );
 
   app.put(
     '/api/tenants/:tenantId',
-    [requireUser, validateResource(updateTenantSchema)],
+    [requireUser, validateResource(updateTenantSchema), checkRole(Role.Admin)],
     updateTenantHandler
   );
 

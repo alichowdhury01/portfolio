@@ -1,9 +1,15 @@
 import { Request, Response, NextFunction } from "express";
 import { findUser } from "../service/user.service";
 import { Role } from "../enum/enum.enum";
+import UserModel from "../models/user.model";
 
-const roleCompareTo = Role.Admin;
-
+/**
+ * Middleware function to check if a user is authenticated.
+ * @param req - Express Request object
+ * @param res - Express Response object
+ * @param next - Express NextFunction
+ * @returns 403 Forbidden error if user is not authenticated, otherwise calls next middleware
+ */
 export const checkRole = (requiredRole: Role) => async (
   req: Request,
   res: Response,

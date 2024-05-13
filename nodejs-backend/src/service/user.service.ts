@@ -50,5 +50,5 @@ export async function validatePassword({
  */
 export async function findUser(query: FilterQuery<UserDocument>) {
   // Using lean() to return plain JavaScript objects instead of Mongoose documents for improved performance.
-  return UserModel.findOne(query).lean();
+  return UserModel.findOne(query).lean().select('-password');
 }

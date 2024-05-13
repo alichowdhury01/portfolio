@@ -15,10 +15,18 @@ export async function findTenant(
   return TenantModel.findOne(query, {}, options);
 }
 
+export async function getAllTenants() {
+  return TenantModel.find();
+}
+
 export async function findAndUpdateTenant(
   query: FilterQuery<TenantDocument>,
   update: UpdateQuery<TenantDocument>,
   options: QueryOptions
 ) {
   return TenantModel.findOneAndUpdate(query, update, options);
+}
+
+export async function deleteTenant(query: FilterQuery<TenantDocument>) {
+  return TenantModel.deleteOne(query);
 }

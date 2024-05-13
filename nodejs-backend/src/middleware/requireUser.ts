@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import { omit } from 'lodash';
 
 /**
  * Middleware function to check if a user is authenticated.
