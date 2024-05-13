@@ -28,7 +28,7 @@ import {
   getTenantHandler,
   updateTenantHandler,
 } from './controller/tenant.controller';
-import { createTenantSchema, getTenantSchema, updateTenantSchema } from './schema/tenant.schema';
+import { createTenantSchema, updateTenantSchema } from './schema/tenant.schema';
 import { createAssignmentSchema } from './schema/assignment.schema';
 import { createAssignmentHandler } from './controller/assignment.controller';
 import { Role } from './enum/enum.enum';
@@ -58,6 +58,7 @@ function routes(app: Express) {
   // Delete user session route
   app.delete('/api/sessions', requireUser, deleteSessionHandler);
 
+  // Product creation route
   app.post(
     '/api/products',
     requireUser,
@@ -65,62 +66,81 @@ function routes(app: Express) {
     createProductHandler
   );
 
+  // Product update route
   app.put(
     '/api/products/:productId',
     [requireUser, validateResource(updateProductSchema)],
     updateProductHandler
   );
 
+  // Product retrieval route
   app.get(
     '/api/products/:productId',
     validateResource(getProductSchema),
     getProductHandler
   );
 
+  // Product deletion route
   app.delete(
     '/api/products/:productId',
     [requireUser, validateResource(deleteProductSchema)],
     deleteProductHandler
   );
 
+  /**
+   * All routes below require a user to be authenticated.
+   * There are three middlewares used in these routes:
+   * The requireUser middleware adds the user to the request object.
+   * The checkRole middleware checks if the user has the required role.
+   * The validateResource middleware validates the request body through a schema.
+   */
+
+  // Tenant creation route
   app.post(
-    '/api/tenant',
-    validateResource(createTenantSchema),[requireUser, checkRole(Role.Admin)],
+    '/api/tenants',
+    validateResource(createTenantSchema),
+    [requireUser, checkRole(Role.Admin)],
     createTenantHandler
   );
 
-//241183445
+  // Tenant retrieval route
   app.get(
     '/api/tenants/:tenantId',
     [requireUser, checkRole(Role.Admin)],
     getTenantHandler
   );
 
+  // All tenants retrieval route
   app.get(
     '/api/tenants',
     [requireUser, checkRole(Role.Admin)],
     getAllTenantsHandler
   );
 
+  // Tenant update route
   app.put(
     '/api/tenants/:tenantId',
-    [requireUser, validateResource(updateTenantSchema), checkRole(Role.Admin)],
+    [
+      requireUser, 
+      validateResource(updateTenantSchema), 
+      checkRole(Role.Admin)
+    ],
     updateTenantHandler
   );
 
+  // Tenant deletion route
   app.delete(
     '/api/tenants/:tenantId',
     [requireUser, checkRole(Role.Admin)],
     deleteTenantHandler
   );
 
+  // Assignment creation route
   app.post(
     '/api/assignment', 
     validateResource(createAssignmentSchema),
     createAssignmentHandler
   );
-
-
 }
 
 export default routes;
