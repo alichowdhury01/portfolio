@@ -23,6 +23,7 @@ import { createSessionSchema } from './schema/session.schema';
 import { createUserSchema } from './schema/user.schema';
 import {
   createTenantHandler,
+  deleteTenantHandler,
   getAllTenantsHandler,
   getTenantHandler,
   updateTenantHandler,
@@ -107,11 +108,19 @@ function routes(app: Express) {
     updateTenantHandler
   );
 
+  app.delete(
+    '/api/tenants/:tenantId',
+    [requireUser, checkRole(Role.Admin)],
+    deleteTenantHandler
+  );
+
   app.post(
     '/api/assignment', 
     validateResource(createAssignmentSchema),
     createAssignmentHandler
   );
+
+
 }
 
 export default routes;

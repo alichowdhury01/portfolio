@@ -6,6 +6,7 @@ import {
 } from '../schema/tenant.schema';
 import {
   createTenant,
+  deleteTenant,
   findAndUpdateTenant,
   findTenant,
   getAllTenants,
@@ -91,6 +92,38 @@ export async function updateTenantHandler(
     )
 
     return res.send(updateTenant);
+
+  } catch (error: any) {
+    return res.status(409).send(error.message);
+  }
+}
+
+export async function deleteTenantHandler(
+  req: Request<GetTenantInput['params']>,
+  res: Response
+) {
+  try {
+    const userInfo = {
+      userId: res.locals.user._id,
+      tenantId: req.params.tenantId,
+    };
+
+    const user = await findUser({ _id: userInfo.userId });
+
+    if (!user) {
+      return res.sendStatus(404);
+    }
+
+
+
+    const findTenantToDelete = await findTenant({ tenantId: userInfo.tenantId });
+    if (!findTenantToDelete) {
+      return res.sendStatus(404);
+    }
+
+    await deleteTenant(findTenantToDelete._id);
+
+    return res.send(`Tenant Id: ${userInfo.tenantId} has been deleted`);
 
   } catch (error: any) {
     return res.status(409).send(error.message);
