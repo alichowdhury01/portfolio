@@ -9,9 +9,11 @@ import logger from './logger';
  */
 async function connect() {
   const dbUri = config.get<string>('dbUri');
-
+  const collectionName = config.get<string>('collectionName');
+  console.log(collectionName)
   try {
-    await mongoose.connect(dbUri);
+    await mongoose.connect(dbUri, { dbName: collectionName })
+
     logger.info('DB connected');
   } catch (error) {
     logger.error('Could not connect to db');

@@ -1,8 +1,6 @@
 import { FilterQuery } from 'mongoose';
 import { omit } from 'lodash';
 import UserModel, { UserDocument, UserInput } from '../models/user.model';
-import c from 'config';
-import e from 'express';
 
 /**
  * Creates a new user in the database.
