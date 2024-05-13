@@ -23,6 +23,7 @@ import { createSessionSchema } from './schema/session.schema';
 import { createUserSchema } from './schema/user.schema';
 import {
   createTenantHandler,
+  createTenantsHandler,
   getTenantHandler,
   updateTenantHandler,
   // updateTenantHandler,
@@ -31,6 +32,8 @@ import {
 import { createTenantSchema, getTenantSchema, updateTenantSchema } from './schema/tenant.schema';
 import { createAssignmentSchema } from './schema/assignment.schema';
 import { createAssignmentHandler } from './controller/assignment.controller';
+import { Role } from './enum/enum.enum';
+import { checkRole } from './middleware/checkRole';
 
 /**
  * Defines the application routes.
@@ -83,13 +86,12 @@ function routes(app: Express) {
 
   app.post(
     '/api/tenant',
-    validateResource(createTenantSchema),
-    createTenantHandler
+    validateResource(createTenantSchema),[requireUser, checkRole(Role.Admin)],
+    createTenantsHandler
   );
 
   app.get(
     '/api/tenants/:tenantId',
-  
     getTenantHandler
   );
 
