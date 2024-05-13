@@ -24,6 +24,7 @@ import { createUserSchema } from './schema/user.schema';
 import {
   createTenantHandler,
   getTenantHandler,
+  updateTenantHandler,
   // updateTenantHandler,
   // updateTenantHandler,
 } from './controller/tenant.controller';
@@ -92,11 +93,11 @@ function routes(app: Express) {
     getTenantHandler
   );
 
-  // app.put(
-  //   '/api/tenants/:tenantId',
-  //   [requireUser, validateResource(updateTenantSchema)],
-  //   updateTenantHandler
-  // );
+  app.put(
+    '/api/tenants/:tenantId',
+    [requireUser, validateResource(updateTenantSchema)],
+    updateTenantHandler
+  );
 
   app.post(
     '/api/assignment', 

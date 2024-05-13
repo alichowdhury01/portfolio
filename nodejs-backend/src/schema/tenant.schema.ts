@@ -37,7 +37,7 @@ const payload = {
     ),
     activeTenant: boolean({
       required_error: 'Active is required',
-    }) 
+    })
   })
 };
 

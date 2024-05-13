@@ -1,12 +1,7 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import config from 'config';
-
-// Define user roles
-enum Role {
-  User = 'user',
-  Admin = 'admin',
-}
+import { Role } from '../enum/enum.enum';
 
 // Input interface for creating a user
 export interface UserInput {

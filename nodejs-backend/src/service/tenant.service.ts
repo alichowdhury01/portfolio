@@ -20,5 +20,5 @@ export async function findAndUpdateTenant(
   update: UpdateQuery<TenantDocument>,
   options: QueryOptions
 ) {
-  return TenantModel.findOne(query, update, options);
+  return TenantModel.findOneAndUpdate(query, update, options);
 }

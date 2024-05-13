@@ -12,7 +12,7 @@ import { findUser } from './user.service';
  * @returns The created session object.
  */
 export async function createSession(userId: string, userAgent: string) {
-  const session = await SessionModel.create({ user: userId, userAgent });
+  const session = await SessionModel.create({ user: userId, userAgent});
 
   return session.toJSON();
 }
@@ -63,7 +63,7 @@ export async function reIssueAccessToken({
 
   const accessToken = signJwt(
     { ...user, session: session._id },
-    { expiresIn: config.get('accessTokenTtl') } // 15 minutes
+    { expiresIn: config.get('accessTokenTtl') } 
   );
 
   return accessToken;

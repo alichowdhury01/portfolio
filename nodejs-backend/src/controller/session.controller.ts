@@ -17,31 +17,34 @@ import config from 'config';
  * @returns Access and Refresh tokens if authentication is successful, else an error message.
  */
 export async function createUserSessionHandler(req: Request, res: Response) {
-  // Validate user credentials
-  const user = await validatePassword(req.body);
+  try {
+    // Validate user credentials
+    const user = await validatePassword(req.body);
+    // console log user role 
+    // If user is not found, return an error
+    if (!user) {
+      return res.status(401).send('Invalid email or password');
+    }
 
-  // If user is not found, return an error
-  if (!user) {
-    return res.status(401).send('Invalid email or password');
+    // Create a new session for the user
+    const session = await createSession(user._id, req.get('user-agent') || '');
+    // Generate access token
+    const accessToken = signJwt(
+      { ...user, session: session._id },
+      { expiresIn: config.get('accessTokenTtl') } 
+    );
+
+    // Generate refresh token
+    const refreshToken = signJwt(
+      { ...user, session: session._id },
+      { expiresIn: config.get('refreshTokenTtl') }
+    );
+    // Return access and refresh tokens
+    return res.send({ accessToken, refreshToken, user});
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send('Internal Server Error');
   }
-
-  // Create a new session for the user
-  const session = await createSession(user._id, req.get('user-agent') || '');
-
-  // Generate access token
-  const accessToken = signJwt(
-    { ...user, session: session._id },
-    { expiresIn: config.get('accessTokenTtl') }
-  );
-
-  // Generate refresh token
-  const refreshToken = signJwt(
-    { ...user, session: session._id },
-    { expiresIn: config.get('refreshTokenTtl') }
-  );
-
-  // Return access and refresh tokens
-  return res.send({ accessToken, refreshToken });
 }
 
 /**
@@ -52,14 +55,19 @@ export async function createUserSessionHandler(req: Request, res: Response) {
  * @returns All active sessions for the authenticated user.
  */
 export async function getUserSessionsHandler(req: Request, res: Response) {
-  // Get user ID from the authenticated user's session
-  const userId = res.locals.user._id;
+  try {
+    // Get user ID from the authenticated user's session
+    const userId = res.locals.user._id;
 
-  // Find all active sessions for the user
-  const sessions = await findSessions({ user: userId, valid: true });
+    // Find all active sessions for the user
+    const sessions = await findSessions({ user: userId, valid: true });
 
-  // Return all active sessions
-  return res.send(sessions);
+    // Return all active sessions
+    return res.send(sessions);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send('Internal Server Error');
+  }
 }
 
 /**
@@ -70,15 +78,20 @@ export async function getUserSessionsHandler(req: Request, res: Response) {
  * @returns Null access and refresh tokens after deleting the session.
  */
 export async function deleteSessionHandler(req: Request, res: Response) {
-  // Get session ID from the authenticated user's session
-  const sessionId = res.locals.user.session;
+  try {
+    // Get session ID from the authenticated user's session
+    const sessionId = res.locals.user.session;
 
-  // Invalidate the current session
-  await updateSession({ _id: sessionId }, { valid: false });
+    // Invalidate the current session
+    await updateSession({ _id: sessionId }, { valid: false });
 
-  // Return null access and refresh tokens
-  return res.send({
-    accessToken: null,
-    refreshToken: null,
-  });
+    // Return null access and refresh tokens
+    return res.send({
+      accessToken: null,
+      refreshToken: null,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send('Internal Server Error');
+  }
 }

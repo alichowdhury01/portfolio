@@ -4,7 +4,14 @@ import {
   GetTenantInput,
   UpdateTenantInput,
 } from '../schema/tenant.schema';
-import { createTenant, findTenant } from '../service/tenant.service';
+import {
+  createTenant,
+  findAndUpdateTenant,
+  findTenant,
+} from '../service/tenant.service';
+import { findUser } from '../service/user.service';
+import { Role } from '../enum/enum.enum';
+// import { findUserRoles } from '../service/user.service';
 
 export async function createTenantHandler(
   req: Request<{}, {}, CreateTenantInput['body']>,
@@ -34,8 +41,9 @@ export async function getTenantHandler(
   try {
     const tenantId = req.params.tenantId;
 
-    const tenant = await findTenant({       
-      tenantId: tenantId});
+    const tenant = await findTenant({
+      tenantId: tenantId,
+    });
     if (!tenant) {
       return res.sendStatus(404);
     }
@@ -43,5 +51,37 @@ export async function getTenantHandler(
   } catch (error: any) {
     console.error(error);
     return res.status(409).send('Tenant not found');
+  }
+}
+
+export async function updateTenantHandler(
+  req: Request<UpdateTenantInput['params']>,
+  res: Response
+) {
+  try {
+    const userInfo = {
+      userId: res.locals.user._id,
+      tenantId: req.params.tenantId,
+      update: req.body,
+    };
+    const user = await findUser({ _id: userInfo.userId });
+    const roleCompareTo = Role.Admin;
+    if (!user) {
+      return res.sendStatus(404);
+    }
+
+    if (user.role !== roleCompareTo) {
+      console.log('User is not authorized to update tenant');
+      return res.sendStatus(403);
+    }
+
+    const updateTenant = await findAndUpdateTenant(
+      { tenantId: userInfo.tenantId }, userInfo.update, { new: true }
+    )
+
+    return res.send(updateTenant);
+
+  } catch (error: any) {
+    return res.status(409).send(error.message);
   }
 }
