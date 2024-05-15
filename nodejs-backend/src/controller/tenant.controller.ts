@@ -41,15 +41,10 @@ export async function getTenantHandler(
 ) {
   try {
     const tenantId = req.params.tenantId;
-
-    const tenant = await findTenant({
-      tenantId: tenantId,
-    });
-
+    const tenant = await findTenant({ tenantId: tenantId });
     if (!tenant) {
       return res.sendStatus(404);
     }
-
     return res.send(tenant);
   } catch (error: any) {
     console.error(error);

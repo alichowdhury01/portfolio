@@ -29,8 +29,8 @@ import {
   updateTenantHandler,
 } from './controller/tenant.controller';
 import { createTenantSchema, updateTenantSchema } from './schema/tenant.schema';
-import { createAssignmentSchema } from './schema/assignment.schema';
-import { createAssignmentHandler } from './controller/assignment.controller';
+import { createAssignmentSchema, updateAssignmentSchema } from './schema/assignment.schema';
+import { createAssignmentHandler, deleteAssignmentHandler, getAllAssignmentsHandler, getAssignmentHandler, updateAssignmentHandler } from './controller/assignment.controller';
 import { Role } from './enum/enum.enum';
 import { checkRole } from './middleware/checkRole';
 
@@ -120,11 +120,8 @@ function routes(app: Express) {
   // Tenant update route
   app.put(
     '/api/tenants/:tenantId',
-    [
-      requireUser, 
-      validateResource(updateTenantSchema), 
-      checkRole(Role.Admin)
-    ],
+    validateResource(updateTenantSchema),
+    [requireUser, checkRole(Role.Admin)],
     updateTenantHandler
   );
 
@@ -139,8 +136,40 @@ function routes(app: Express) {
   app.post(
     '/api/assignment', 
     validateResource(createAssignmentSchema),
+    [requireUser, checkRole(Role.Admin)],
     createAssignmentHandler
   );
+
+  // Assignment update route
+  app.put(
+    '/api/assignment/:assignmentId',
+    validateResource(updateAssignmentSchema),
+    [requireUser, checkRole(Role.Admin)],
+    updateAssignmentHandler
+  );
+
+  // Assignment retrieval route
+  app.get(
+    '/api/assignment/:assignmentId',
+    [requireUser, checkRole(Role.Admin)],
+    getAssignmentHandler
+  );
+
+  // Assignment deletion route
+  app.delete(
+    '/api/assignment/:assignmentId',
+    [requireUser, checkRole(Role.Admin)],
+    deleteAssignmentHandler
+  );
+
+  // Assignment retrieval route
+  app.get(
+    '/api/assignment',
+    [requireUser, checkRole(Role.Admin)],
+    getAllAssignmentsHandler
+  );
+
+  
 }
 
 export default routes;

@@ -49,10 +49,7 @@ const TenantCounterModel = mongoose.model("Tenant Counter", tenantCounterSchema)
 
 const tenantSchema = new mongoose.Schema(
   {
-    tenantId: {
-      type: Number,
-      unique: true,
-    },
+    tenantId: { type: Number, unique: true },
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
