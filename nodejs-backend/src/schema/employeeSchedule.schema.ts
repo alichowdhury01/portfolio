@@ -1,4 +1,4 @@
-import { object, number, string, TypeOf, date, boolean, any } from 'zod';
+import { object, string, TypeOf } from 'zod';
 
 
 const payload = {
@@ -30,7 +30,7 @@ const payload = {
 const param = {
     params: object({
         scheduleName: string({
-            required_error: 'Schedule ID is required'
+            required_error: 'Schedule name is required'
         })
     })
 };

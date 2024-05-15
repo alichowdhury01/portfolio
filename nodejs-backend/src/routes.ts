@@ -33,7 +33,7 @@ import { createAssignmentSchema, updateAssignmentSchema } from './schema/assignm
 import { createAssignmentHandler, deleteAssignmentHandler, getAllAssignmentsHandler, getAssignmentHandler, updateAssignmentHandler } from './controller/assignment.controller';
 import { Role } from './enum/enum.enum';
 import { checkRole } from './middleware/checkRole';
-import { createEmployeeScheduleHandler, getAllEmployeeSchedulesHandler, getEmployeeScheduleHandler } from './controller/employeeSchedule.controller';
+import { createEmployeeScheduleHandler, deleteEmployeeScheduleHandler, getAllEmployeeSchedulesHandler, getEmployeeScheduleHandler, updateEmployeeScheduleHandler } from './controller/employeeSchedule.controller';
 import { createEmployeeScheduleSchema } from './schema/employeeSchedule.schema';
 
 /**
@@ -173,7 +173,7 @@ function routes(app: Express) {
 
   // Employee Schedule creation route
   app.post(
-    '/api/employeeSchedule',
+    '/api/employeeschedule',
     validateResource(createEmployeeScheduleSchema),
     [requireUser, checkRole(Role.Admin)],
     createEmployeeScheduleHandler
@@ -181,18 +181,31 @@ function routes(app: Express) {
 
   // Get employee schedule route
   app.get(
-    '/api/employeeSchedule/:scheduleName',
+    '/api/employeeschedule/:scheduleName',
     [requireUser, checkRole(Role.Admin)],
     getEmployeeScheduleHandler
   );
 
   // Get all employee schedules route
   app.get(
-    '/api/employeesSchedules',
+    '/api/employeesschedules',
     [requireUser, checkRole(Role.Admin)],
     getAllEmployeeSchedulesHandler
   );
 
+  // Employee Schedule update route
+  app.put(
+    '/api/employeesschedules/:scheduleName',
+    [requireUser, checkRole(Role.Admin)],
+    updateEmployeeScheduleHandler
+  );
+
+  // Employee Schedule deletion route
+  app.delete(
+    '/api/employeesschedules/:scheduleName',
+    [requireUser, checkRole(Role.Admin)],
+    deleteEmployeeScheduleHandler
+  );
   
 }
 
