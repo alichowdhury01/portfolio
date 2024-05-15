@@ -33,6 +33,8 @@ import { createAssignmentSchema, updateAssignmentSchema } from './schema/assignm
 import { createAssignmentHandler, deleteAssignmentHandler, getAllAssignmentsHandler, getAssignmentHandler, updateAssignmentHandler } from './controller/assignment.controller';
 import { Role } from './enum/enum.enum';
 import { checkRole } from './middleware/checkRole';
+import { createEmployeeScheduleHandler, getEmployeeScheduleHandler } from './controller/employeeSchedule.controller';
+import { createEmployeeScheduleSchema } from './schema/employeeSchedule.schema';
 
 /**
  * Defines the application routes.
@@ -167,6 +169,21 @@ function routes(app: Express) {
     '/api/assignment',
     [requireUser, checkRole(Role.Admin)],
     getAllAssignmentsHandler
+  );
+
+  // Employee Schedule creation route
+  app.post(
+    '/api/employeeSchedule',
+    validateResource(createEmployeeScheduleSchema),
+    [requireUser, checkRole(Role.Admin)],
+    createEmployeeScheduleHandler
+  );
+
+  // Get employee schedule route
+  app.get(
+    '/api/employeeSchedule/:scheduleName',
+    [requireUser, checkRole(Role.Admin)],
+    getEmployeeScheduleHandler
   );
 
   
