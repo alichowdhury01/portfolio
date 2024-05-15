@@ -22,9 +22,9 @@ export async function createEmployeeScheduleHandler(
       userId: res.locals.user._id,
       body: req.body,
     };
-    const employeeSchedule = await createEmployeeSchedule({ 
-        ...userInfo.body,
-        user: userInfo.userId
+    const employeeSchedule = await createEmployeeSchedule({
+      ...userInfo.body,
+      user: userInfo.userId,
     });
 
     return res.send(employeeSchedule);
@@ -34,18 +34,32 @@ export async function createEmployeeScheduleHandler(
 }
 
 export async function getEmployeeScheduleHandler(
-    req: Request<GetEmployeeScheduleInput['params']>, 
-    res: Response
+  req: Request<GetEmployeeScheduleInput['params']>,
+  res: Response
 ) {
   try {
     const employeeScheduleName = req.params.scheduleName;
-    const employeeSchedule = await findEmployeeSchedule({ scheduleName: employeeScheduleName});
+    const employeeSchedule = await findEmployeeSchedule({
+      scheduleName: employeeScheduleName,
+    });
 
     if (!employeeSchedule) {
       return res.sendStatus(404);
     }
 
     return res.send(employeeSchedule);
+  } catch (error: any) {
+    return res.status(409).send(error.message);
+  }
+}
+
+export async function getAllEmployeeSchedulesHandler(
+  req: Request,
+  res: Response
+) {
+  try {
+    const employeeSchedules = await getAllEmployeeSchedules();
+    return res.send(employeeSchedules);
   } catch (error: any) {
     return res.status(409).send(error.message);
   }

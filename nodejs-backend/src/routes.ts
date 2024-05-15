@@ -33,7 +33,7 @@ import { createAssignmentSchema, updateAssignmentSchema } from './schema/assignm
 import { createAssignmentHandler, deleteAssignmentHandler, getAllAssignmentsHandler, getAssignmentHandler, updateAssignmentHandler } from './controller/assignment.controller';
 import { Role } from './enum/enum.enum';
 import { checkRole } from './middleware/checkRole';
-import { createEmployeeScheduleHandler, getEmployeeScheduleHandler } from './controller/employeeSchedule.controller';
+import { createEmployeeScheduleHandler, getAllEmployeeSchedulesHandler, getEmployeeScheduleHandler } from './controller/employeeSchedule.controller';
 import { createEmployeeScheduleSchema } from './schema/employeeSchedule.schema';
 
 /**
@@ -184,6 +184,13 @@ function routes(app: Express) {
     '/api/employeeSchedule/:scheduleName',
     [requireUser, checkRole(Role.Admin)],
     getEmployeeScheduleHandler
+  );
+
+  // Get all employee schedules route
+  app.get(
+    '/api/employeesSchedules',
+    [requireUser, checkRole(Role.Admin)],
+    getAllEmployeeSchedulesHandler
   );
 
   

@@ -33,7 +33,7 @@ const employeeScheduleSchema = new mongoose.Schema({
     endTime: { type: String, required: true },
     lunchStartTime: { type: String, required: true },
     lunchEndTime: { type: String, required: true },
-    breakStartTime: { type: String, required: true },
+    breakStartTime: { type: String, required: false },
     breakEndTime: { type: String, required: true },
   },
   {
