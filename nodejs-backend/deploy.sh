@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Pulling
+echo "Pulling"
 git pull
 
 echo "Building application"
