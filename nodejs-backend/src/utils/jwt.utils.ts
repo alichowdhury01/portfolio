@@ -2,9 +2,16 @@ import jwt from 'jsonwebtoken';
 import config from 'config';
 
 // Getting the private and public keys from the configuration
-const privateKey = config.get<string>('privateKey');
-const publicKey = config.get<string>('publicKey');
-
+const privateKey = Buffer.from(
+  config.get<string>('privateKey'),
+  'base64',
+).toString('ascii') 
+const publicKey = Buffer.from(
+  config.get<string>('publicKey'),
+  'base64',
+).toString('ascii');
+console.log("privateKey", privateKey);
+console.log("publicKey", publicKey);
 /**
  * Generates a JWT (JSON Web Token) using RS256 algorithm.
  * @param object - Payload object to be encoded into the JWT.
