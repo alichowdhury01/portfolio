@@ -115,6 +115,7 @@ function routes(app: Express) {
   // All tenants retrieval route
   app.get(
     '/api/tenants',
+    validateResource(getProductSchema),
     [requireUser, checkRole(Role.Admin)],
     getAllTenantsHandler
   );

@@ -2,6 +2,9 @@ import { object, number, string, TypeOf } from 'zod';
 
 const payload = {
   body: object({
+    productId: string({
+      required_error: 'Product ID is required',
+    }),
     title: string({
       required_error: 'Title is required',
     }),

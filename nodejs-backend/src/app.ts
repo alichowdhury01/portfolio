@@ -4,29 +4,15 @@ import connect from './utils/connect'; // Database connection utility
 import logger from './utils/logger'; // Logging utility
 import routes from './routes'; // Application routes
 import deserializeUser from './middleware/deserializeUser'; // Middleware for user deserialization
-
+import createServer from './utils/server';
 /**
  * Constants and variables.
  */
 
 const PORT = config.get<string>('port'); // Server port
 
-/**
- * Create Express app.
- */
 
-const app = express();
-
-/**
- * Middleware setup.
- */
-
-app.use(express.json()); // Middleware for parsing JSON requests
-app.use(deserializeUser); // Custom middleware for deserializing user
-
-/**
- * Start the server.
- */
+const app = createServer();
 
 app.listen(PORT, async () => {
   // Log server information
@@ -35,6 +21,4 @@ app.listen(PORT, async () => {
   // Connect to the database
   await connect();
 
-  // Initialize application routes
-  routes(app);
 });
