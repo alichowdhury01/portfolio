@@ -9,9 +9,11 @@ const PRIVATEKEY = process.env.PRIVATEKEY;
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
 const COLLECTION_NAME = process.env.COLLECTION_NAME;
+const ORIGIN = process.env.ORIGIN;
 
 export default {
     port: PORT,
+    origin: ORIGIN,
     dbUri: DBURI,
     collectionName: COLLECTION_NAME,
     saltWorkFactor: 10,
