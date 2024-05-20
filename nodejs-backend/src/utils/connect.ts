@@ -10,9 +10,8 @@ import logger from './logger';
 async function connect() {
   const dbUri = config.get<string>('dbUri');
   const collectionName = config.get<string>('collectionName');
-  console.log(collectionName)
   try {
-    await mongoose.connect(dbUri, { dbName: collectionName })
+    await mongoose.connect('mongodb+srv://alichowdhury:Mouri123!@bd1.gm4lics.mongodb.net/?retryWrites=true&w=majority&appName=bd1')
 
     logger.info('DB connected');
   } catch (error) {
