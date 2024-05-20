@@ -15,7 +15,7 @@ export default {
     port: PORT,
     origin: ORIGIN,
     dbUri: DBURI,
-    collectionName: COLLECTION_NAME,
+    collectionName: 'MVPS',
     saltWorkFactor: 10,
     accessTokenTtl: "120m",
     refreshTokenTtl: "1y",
