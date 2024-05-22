@@ -1,4 +1,4 @@
-FROM node:18
+FROM node:14
 
 ADD package.json /tmp/package.json
 
