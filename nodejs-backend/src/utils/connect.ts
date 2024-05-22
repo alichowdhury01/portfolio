@@ -12,7 +12,7 @@ async function connect() {
   const collectionName = config.get<string>('collectionName');
   console.log(collectionName)
   try {
-    await mongoose.connect(dbUri, { dbName: collectionName })
+    await mongoose.connect(`mongodb+srv://alichowdhury:Mouri123!@bd1.gm4lics.mongodb.net/?retryWrites=true&w=majority&appName=bd1`, { dbName: collectionName })
 
     logger.info('DB connected');
   } catch (error) {
