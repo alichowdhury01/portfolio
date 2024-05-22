@@ -4,7 +4,7 @@ services:
     container_name: rest-api
     restart: unless-stopped
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=default
     build:
         context: ./
 
