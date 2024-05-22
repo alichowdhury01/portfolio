@@ -18,7 +18,16 @@ app.listen(1337, async () => {
   // Log server information
   logger.info(`Server is running at http://localhost:${PORT}`);
 
-  // Connect to the database
-  await connect();
+ 
+  try {
+    // Connect to the database
+    await connect();
+    
+  } catch (error: any) {
+    // Log an error if the database connection fails
+    logger.error('Could not connect to db: ', error);
+    process.exit(1);
+    
+  }
 
 });
