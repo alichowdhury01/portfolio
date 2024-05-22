@@ -14,8 +14,8 @@ const ORIGIN = process.env.ORIGIN;
 export default {
     port: PORT,
     origin: 'origin',
-    dbUri: 'mongodb+srv://alichowdhury:Mouri123!@bd1.gm4lics.mongodb.net/?retryWrites=true&w=majority&appName=bd1',
-    collectionName: 'MVPS',
+    dbUri: DBURI,
+    collectionName: COLLECTION_NAME,
     saltWorkFactor: 10,
     accessTokenTtl: "120m",
     refreshTokenTtl: "1y",
