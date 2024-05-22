@@ -16,13 +16,13 @@ const app = createServer();
 
 app.listen(1337, async () => {
   // Log server information
-  logger.info(`Server is running at http://localhost:${PORT}`);
 
  
   try {
     // Connect to the database
     await connect();
-    
+    logger.info(`Server is running at http://localhost:${PORT}`);
+
   } catch (error: any) {
     // Log an error if the database connection fails
     logger.error('Could not connect to db: ', error);
