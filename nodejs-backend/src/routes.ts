@@ -42,7 +42,7 @@ import { createEmployeeScheduleSchema } from './schema/employeeSchedule.schema';
  */
 function routes(app: Express) {
   // Health check route
-  app.get('/healthcheck', (req: Request, res: Response) => res.sendStatus(200));
+  app.get('/healthcheck', (req: Request, res: Response) => res.status(200).send('Salut! à vous 2, Steph et Jay!'));
 
   // User creation route
   app.post('/api/users', validateResource(createUserSchema), createUserHandler);
