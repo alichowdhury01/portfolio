@@ -1,4 +1,4 @@
-export default {
+export default  {
   port: `1337`,
   origin: 'origin',
   dbUri: `mongodb+srv://alichowdhury:Mouri123!@bd1.gm4lics.mongodb.net/?retryWrites=true&w=majority&appName=bd1`,
