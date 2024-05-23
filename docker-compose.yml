@@ -8,12 +8,11 @@ services:
     environment:
       - NODE_ENV=production
       - NEXT_PUBLIC_SERVER_ENDPOINT=https://rest-api.alichowdhury.net
-    ports:
-      - "3000:3000"
 
-  backend:
+
+  rest-api:
     build: ./nodejs-backend
-    container_name: backend
+    container_name: rest-api
     restart: unless-stopped
     environment:
       - NODE_ENV=default
