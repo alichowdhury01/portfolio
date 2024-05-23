@@ -8,7 +8,7 @@ function createServer() {
   const app = express();
   app.use(
     cors({
-      origin: "http://localhost:3000",
+      origin: "http://www.alichowdhury.ca",
       credentials: true,
     })
   );
