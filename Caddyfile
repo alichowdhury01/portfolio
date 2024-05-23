@@ -1,4 +1,7 @@
 rest-api.alichowdhury.net {
-    reverse_proxy /api/* backend:`1337`
-    reverse_proxy /* nextjs-app:3000
+  reverse_proxy rest-api:1337 {
+    header_down Strict-Transport-Security "max-age=31536000"
+  }
+  reverse_proxy nextjs-app:3000
+
 }
