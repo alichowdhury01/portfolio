@@ -17,8 +17,7 @@ services:
     restart: unless-stopped
     environment:
       - NODE_ENV=production
-    ports:
-      - "1337:1337"
+
 
   caddy:
     image: caddy:2.4.3
