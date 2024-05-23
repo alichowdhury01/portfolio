@@ -12,6 +12,7 @@ function createServer() {
       credentials: true,
     })
   );
+  
   app.use(express.json());
   app.use(deserializeUser);
   routes(app);
