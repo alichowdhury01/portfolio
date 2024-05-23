@@ -1,16 +1,10 @@
 rest-api.alichowdhury.net {
-  reverse_proxy rest-api:3000 {
-    header_down Strict-Transport-Security "max-age=31536000"
-  }
-  reverse_proxy nextjs-app:3000
-
-}
-
-{
-  www.alichowdhury.ca {
   reverse_proxy rest-api:1337 {
     header_down Strict-Transport-Security "max-age=31536000"
   }
+  reverse_proxy nextjs-app:3000 {
+    header_down Strict-Transport-Security "max-age=31536000"
+  }
 
 }
-}
+
