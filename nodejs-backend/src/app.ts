@@ -27,7 +27,6 @@ app.listen(1337, async () => {
     // Log an error if the database connection fails
     logger.error('Could not connect to db: ', error);
     process.exit(1);
-    
   }
 
 });
