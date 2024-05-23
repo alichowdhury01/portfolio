@@ -1,3 +1,8 @@
+{
+    email alichowdhury01@gmail.com
+}
+
+
 www.alichowdhury.ca {
     reverse_proxy nextjs-app:3000
     
