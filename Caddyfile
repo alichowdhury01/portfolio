@@ -1,4 +1,4 @@
 rest-api.alichowdhury.net {
-    reverse_proxy /api/* backend:4000
+    reverse_proxy /api/* backend:`1337`
     reverse_proxy /* nextjs-app:3000
 }
