@@ -27,11 +27,10 @@ export default function Longin() {
   } = useForm<CreateSessionInput>({
     resolver: zodResolver(createSessionSchema),
   });
-
   async function onSubmit(values: CreateSessionInput) {
     try {
       await axios.post(
-        `https://rest-api.alichowdhury.net/api/sessions`,
+        `${process.env.NEXT_PUBLIC_SERVER_ENDPOINT}/api/sessions`,
         values,
         { withCredentials: true }
       );
