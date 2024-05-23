@@ -8,11 +8,11 @@ function createServer() {
   const app = express();
   app.use(
     cors({
-      origin: "http://www.alichowdhury.ca",
+      origin: "rest-api.alichowdhury.net",
       credentials: true,
     })
   );
-  
+
   app.use(express.json());
   app.use(deserializeUser);
   routes(app);
