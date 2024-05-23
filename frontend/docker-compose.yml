@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  nextjs-app:
+    build: ./frontend
+    container_name: nextjs-app
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_SERVER_ENDPOINT=https://rest-api.alichowdhury.net
+
+
+  caddy:
+    image: caddy:2.4.3
+    container_name: caddy-service
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:            
+      - $PWD/Caddyfile:/etc/caddy/Caddyfile
+      - $PWD/site:/srv
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  caddy_data:
+  caddy_config:
