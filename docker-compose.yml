@@ -16,7 +16,7 @@ services:
     container_name: backend
     restart: unless-stopped
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=default
 
 
   caddy:
@@ -26,8 +26,9 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
+    volumes:            
+      - $PWD/Caddyfile:/etc/caddy/Caddyfile
+      - $PWD/site:/srv
       - caddy_data:/data
       - caddy_config:/config
 
