@@ -31,7 +31,7 @@ export default function Longin() {
   async function onSubmit(values: CreateSessionInput) {
     try {
       await axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER_ENDPOINT}/api/sessions`,
+        `https://rest-api.alichowdhury.net/api/sessions`,
         values,
         { withCredentials: true }
       );
