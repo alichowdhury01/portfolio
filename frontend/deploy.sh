@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# Navigate to the project directory
-cd /root/var/www/portfolio
+
 
 echo "Pulling latest changes from repository"
 git pull origin main
