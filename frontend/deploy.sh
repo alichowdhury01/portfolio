@@ -6,6 +6,9 @@ cd /root/var/www/portfolio
 echo "Pulling latest changes from repository"
 git pull origin main
 
+# Update Browserslist database
+npx update-browserslist-db@latest
+
 # Clean up Docker build cache
 docker builder prune -f
 
