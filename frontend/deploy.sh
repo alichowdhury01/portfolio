@@ -1,10 +1,10 @@
 #!/bin/bash
 
+# Navigate to the project directory
+cd /root/var/www/portfolio/frontend
+
 echo "Pulling latest changes from repository"
 git pull origin main
-
-# Update Browserslist database
-npx update-browserslist-db@latest
 
 # Clean up Docker build cache
 docker builder prune -f
@@ -24,4 +24,4 @@ echo "Building and starting Docker containers"
 docker compose up --build --no-cache -d
 
 echo "Verifying deployment"
-docker-compose logs
+docker compose logs

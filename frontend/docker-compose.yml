@@ -1,16 +1,15 @@
 version: '3.8'
 
 services:
-  portfolio-frontend:
+  nextjs-app:
     build: ./
-    container_name: portfolio-frontend
+    container_name: nextjs-app
     restart: unless-stopped
     environment:
       - NODE_ENV=production
       - NEXT_PUBLIC_SERVER_ENDPOINT=https://www.alichowdhury.ca
     ports: 
       - "3000:3000"
-    command: npm run start
 
 
 
