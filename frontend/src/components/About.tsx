@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 
 export default function About() {
   const images = [
-    '/images/tesla.jpg',
+    '/public/images/tesla.jpg',
     '/images/foodie.jpg',
     '/images/tech.jpg',
     '/images/coding.jpg',
