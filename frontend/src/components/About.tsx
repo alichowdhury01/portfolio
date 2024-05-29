@@ -8,7 +8,7 @@ export default function About() {
     '/public/images/tesla.jpg',
     '/images/foodie.jpg',
     '/images/tech.jpg',
-    '/images/coding.jpg',
+    '/public/coding.jpg',
   ];
   return (
     <div>
