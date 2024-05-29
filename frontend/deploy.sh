@@ -1,7 +1,5 @@
 #!/bin/bash
 
-
-
 echo "Pulling latest changes from repository"
 git pull origin main
 
@@ -23,7 +21,7 @@ if [ "$(docker ps -q -f name=caddy-service)" ]; then
 fi
 
 echo "Building and starting Docker containers"
-docker compose up --build --no-cache -d
+docker-compose up --build --no-cache -d
 
 echo "Verifying deployment"
-docker compose logs
+docker-compose logs

@@ -10,6 +10,7 @@ services:
       - NEXT_PUBLIC_SERVER_ENDPOINT=https://www.alichowdhury.ca
     ports: 
       - "3000:3000"
+    command: npm run start
 
 
 
