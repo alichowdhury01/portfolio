@@ -5,7 +5,7 @@
 
 www.alichowdhury.ca {
   
-    reverse_proxy next-app:3000
+    reverse_proxy nextjs-app:3000
     header / {
         Access-Control-Allow-Origin "https://www.alichowdhury.ca"
         Access-Control-Allow-Methods "GET, POST, OPTIONS, PUT, DELETE"
