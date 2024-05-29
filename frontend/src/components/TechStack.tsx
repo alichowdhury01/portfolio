@@ -31,7 +31,7 @@ export const TechStack = () => {
     },
     {
       title: "MongoDB",
-      src: "/images/logos/mongoDB.png",
+      src: "/images/logos/MongoDB.png",
 
       className: "h-10 w-24",
     },
