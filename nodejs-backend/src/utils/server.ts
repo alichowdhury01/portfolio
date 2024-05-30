@@ -5,7 +5,7 @@ import cors from 'cors';
 import config from 'config';
 
 function createServer() {
-  const allowedOrigins = ['https://www.alichowdhury.ca'];
+  const allowedOrigins = ['https://www.alichowdhury.ca', 'http://localhost:3000']
 
   const corsOptions: cors.CorsOptions = {
     origin: allowedOrigins,
