@@ -5,10 +5,10 @@ import { motion } from 'framer-motion';
 
 export default function About() {
   const images = [
-    '/public/images/tesla.jpg',
+    '/images/tesla.jpg',
     '/images/foodie.jpg',
     '/images/tech.jpg',
-    '/public/coding.jpg',
+    '/images/coding.jpg',
   ];
   return (
     <div>

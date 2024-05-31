@@ -23,6 +23,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   } else {
     return {
       title: "Projects | Ali Chowdhury",
+      description:
+        "Ali Chowdhury is a developer, foodie, EV and tech enthusiast.",
     };
   }
 }
