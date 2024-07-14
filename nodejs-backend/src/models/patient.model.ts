@@ -1,7 +1,9 @@
 import mongoose from 'mongoose';
+import { UserDocument } from './user.model';
 
 
 export interface PatientInput {
+  user: UserDocument["_id"];
   email: string;
   phone: string;
   name: string;
