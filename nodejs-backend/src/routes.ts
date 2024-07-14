@@ -35,6 +35,7 @@ import { Role } from './enum/enum.enum';
 import { checkRole } from './middleware/checkRole';
 import { createEmployeeScheduleHandler, deleteEmployeeScheduleHandler, getAllEmployeeSchedulesHandler, getEmployeeScheduleHandler, updateEmployeeScheduleHandler } from './controller/employeeSchedule.controller';
 import { createEmployeeScheduleSchema } from './schema/employeeSchedule.schema';
+import { createPatientHandler } from './controller/patient.controller';
 
 /**
  * Defines the application routes.
@@ -206,6 +207,13 @@ function routes(app: Express) {
     '/api/employeesschedules/:scheduleName',
     [requireUser, checkRole(Role.Admin)],
     deleteEmployeeScheduleHandler
+  );
+
+  // Patient creation route
+  app.post(
+    '/api/patients',
+    [requireUser, checkRole(Role.Admin)],
+    createPatientHandler
   );
   
 }
